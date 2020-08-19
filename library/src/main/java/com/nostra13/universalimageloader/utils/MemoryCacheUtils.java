@@ -44,7 +44,7 @@ public final class MemoryCacheUtils {
 	 * Pattern for cache key - <b>[imageUri]_[width]x[height]</b>.
 	 */
 	public static String generateKey(String imageUri, ImageSize targetSize) {
-		return new StringBuilder(imageUri).append(URI_AND_SIZE_SEPARATOR).append(targetSize.getWidth()).append(WIDTH_AND_HEIGHT_SEPARATOR).append(targetSize.getHeight()).toString();
+		return imageUri + URI_AND_SIZE_SEPARATOR + targetSize.getWidth() + WIDTH_AND_HEIGHT_SEPARATOR + targetSize.getHeight();
 	}
 
 	public static Comparator<String> createFuzzyKeyComparator() {
@@ -97,7 +97,7 @@ public final class MemoryCacheUtils {
 	 * denyCacheImageMultipleSizesInMemory()} option in {@linkplain ImageLoaderConfiguration configuration}
 	 */
 	public static void removeFromCache(String imageUri, MemoryCache memoryCache) {
-		List<String> keysToRemove = new ArrayList<String>();
+		List<String> keysToRemove = new ArrayList<>();
 		for (String key : memoryCache.keys()) {
 			if (key.startsWith(imageUri)) {
 				keysToRemove.add(key);
